@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Inventory Dashboard</title>
+<title>Inventory Gudang - ISS</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
@@ -66,21 +66,29 @@ body {
 }
 
 .sidebar-logo {
-  width: 40px;
-  height: 40px;
-  background: var(--primary);
+  width: 45px;
+  height: 45px;
+  background: white;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   font-weight: bold;
+  padding: 4px;
+}
+
+.sidebar-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .sidebar-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: -0.5px;
+  line-height: 1.2;
 }
 
 .sidebar-subtitle {
@@ -922,11 +930,11 @@ tr:hover {
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <div class="sidebar-logo">
-      📦
+      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSJ3aGl0ZSIvPgo8cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiMwMDAwMjYiLz4KPHJlY3QgeD0iMzAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzAwMDAyNiIvPgo8Y2lyY2xlIGN4PSI3NSIgY3k9IjUwIiByPSIyMCIgZmlsbD0iI0ZGMDMxQyIvPgo8L3N2Zz4=" alt="ISS Logo">
     </div>
     <div>
-      <div class="sidebar-title">InvHub</div>
-      <div class="sidebar-subtitle">Inventory</div>
+      <div class="sidebar-title">Inventory Gudang</div>
+      <div class="sidebar-subtitle">ISS - Manajemen Stok</div>
     </div>
   </div>
 
@@ -986,7 +994,7 @@ tr:hover {
     <div id="page-dashboard" class="page active">
       <div class="page-header">
         <h1 class="page-title">📊 Dashboard</h1>
-        <p class="page-subtitle">Selamat datang kembali! Berikut ringkasan inventory Anda hari ini.</p>
+        <p class="page-subtitle">Selamat datang di Inventory Gudang ISS. Berikut ringkasan stok Anda hari ini.</p>
       </div>
 
       <div class="cards">
@@ -1367,7 +1375,7 @@ tr:hover {
             </div>
             <div class="settings-item">
               <span class="settings-label">Email</span>
-              <input type="email" value="admin@invhub.com" style="padding: 8px; width: 250px;">
+              <input type="email" value="admin@iss-inventory.com" style="padding: 8px; width: 250px;">
             </div>
             <div class="settings-item">
               <span class="settings-label">Peran</span>
@@ -1556,7 +1564,6 @@ function toggleDarkMode() {
 function logout() {
   if (confirm('Apakah Anda yakin ingin logout?')) {
     alert('Logout berhasil');
-    // Redirect to login page
   }
 }
 
@@ -1648,7 +1655,6 @@ function renderDashboardTable(data) {
       </tr>
     `;
   });
-  document.getElementById("data") = html || '<tr><td colspan="5" style="text-align:center;">Tidak ada data</td></tr>';
 }
 
 function loadInventoryData() {
@@ -1744,7 +1750,6 @@ function loadGudangData() {
 }
 
 function loadLaporanData() {
-  // Update statistics
   const totalItems = rawData.length;
   const totalStok = rawData.reduce((a, b) => a + Number(b.stok), 0);
   const criticalCount = rawData.filter(x => x.status === "CRITICAL").length;
@@ -1753,7 +1758,6 @@ function loadLaporanData() {
   document.getElementById("laporan-stok-tersedia").innerHTML = totalStok;
   document.getElementById("laporan-stok-kritis").innerHTML = criticalCount;
 
-  // Update table
   let html = "";
   rawData.slice(0, 10).forEach(r => {
     const statusClass = r.status === "CRITICAL" ? "status-critical" : 
